@@ -99,8 +99,4 @@ variable "local_network_address_space" {
 variable "connection_shared_key" {
   type     = string
   nullable = true
-  validation {
-    condition     = length(var.connection_shared_key) >= 1 && length(var.connection_shared_key) <= 128
-    error_message = "Shared key must be 1..128 ASCII characters long"
-  }
 }

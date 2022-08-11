@@ -8,10 +8,15 @@ terraform {
       source  = "hashicorp/azuread"
       version = "~>2.0"
     }
+    random = {
+      source  = "hashicorp/random"
+      version = "~>3.0"
+    }
   }
   backend "azurerm" {
-    container_name = "tfstate"
-    key            = "vpn-s2s"
+    container_name   = "tfstate"
+    key              = "vpn-s2s"
+    use_azuread_auth = true
   }
 }
 

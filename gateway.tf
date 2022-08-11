@@ -1,3 +1,12 @@
+resource "random_string" "shared_key" {
+  length  = 128
+  special = false
+}
+
+locals {
+  connection_shared_key = coalesce(var.connection_shared_key, random_string.shared_key.result)
+}
+
 resource "azurerm_public_ip" "gateway" {
   name                = "pip-${local.resource_suffix}-vgw"
   resource_group_name = azurerm_resource_group.main.name
@@ -45,5 +54,5 @@ resource "azurerm_virtual_network_gateway_connection" "main" {
   type                       = "IPsec"
   virtual_network_gateway_id = azurerm_virtual_network_gateway.main.id
   local_network_gateway_id   = azurerm_local_network_gateway.main.id
-  shared_key                 = var.connection_shared_key
+  shared_key                 = local.connection_shared_key
 }
