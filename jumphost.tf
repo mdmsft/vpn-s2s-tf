@@ -31,6 +31,7 @@ resource "azurerm_linux_virtual_machine" "jumphost" {
   admin_username                  = var.jumphost_admin_username
   disable_password_authentication = true
   size                            = var.jumphost_size
+  custom_data                     = base64encode(templatefile("${path.module}/cloud-config.yaml", {}))
 
   network_interface_ids = [
     azurerm_network_interface.jumphost.id

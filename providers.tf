@@ -9,6 +9,10 @@ terraform {
       version = "~>2.0"
     }
   }
+  backend "azurerm" {
+    container_name = "tfstate"
+    key            = "vpn-s2s"
+  }
 }
 
 provider "azurerm" {
